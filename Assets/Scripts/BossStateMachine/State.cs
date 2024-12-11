@@ -32,4 +32,5 @@ public class State : IState
         // dejar que cada estado lo cambie
 
     }
+
 }

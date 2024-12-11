@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class BossController : MonoBehaviour
 {
@@ -9,7 +10,10 @@ public class BossController : MonoBehaviour
 
     public float currentHealth;
     private float maxHealth = 200;
-    
+    public GameObject Projectile;
+    public Transform LaunchOffSet;
+    public float forceAmount = 7f;
+
     State currentState;
     Dictionary<States, State> statesDict = new Dictionary<States, State>();
 
@@ -62,10 +66,23 @@ public class BossController : MonoBehaviour
         currentState.Exit();
         currentState = newState;
         currentState.Entry();
-    }    
+    }
+
+    public void Shoot()
+    {
+        GameObject projectileInstance = Instantiate(Projectile, LaunchOffSet.position, transform.rotation);
+        Rigidbody2D rigidBody = projectileInstance.GetComponent<Rigidbody2D>();
+
+        if (rigidBody)
+        {
+            rigidBody.AddForce(Vector2.left * forceAmount, ForceMode2D.Impulse);
+        }
+    }
+
 }
 
 public enum States
 {
     Follow, Spit, Burp, Recovery, Rage,
 }
+

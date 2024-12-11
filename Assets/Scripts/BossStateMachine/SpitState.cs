@@ -5,15 +5,17 @@ using UnityEngine;
 public class SpitState : State
 {
     public SpitState(BossController Boss) : base(Boss) {}
+    
 
     public override void Entry()
     {
         base.Entry();
         Debug.Log("Spit State Entered");
-        
+
         // instanciar proyectil
-        
+        Boss.Shoot();
         // siguiente estado
         Boss.ChangeStateKey(States.Recovery);
     }
+
 }
